@@ -101,6 +101,14 @@ const themeSwitchItems: BottomNavItem[] = [
 const languageSwitchItems: BottomNavItem[] = [
   {
     icon: <GlobeAltIcon />,
+    title: 'Portuguese',
+    locale: 'pt',
+    handle: () => {
+      setCookie('NEXT_LOCALE', 'pt')
+    },
+  },
+  {
+    icon: <GlobeAltIcon />,
     title: 'English',
     locale: 'en',
     handle: () => {
