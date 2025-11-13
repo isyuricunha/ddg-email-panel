@@ -11,6 +11,15 @@ import { useAuth } from '../hooks/useAuth'
 import * as store from '../utils/store'
 import generateAddresses from '../utils/generateAddresses'
 
+interface AliasItem {
+  id: string
+  alias: string
+  createdAt: string
+  isActive: boolean
+  usageCount: number
+  description?: string
+}
+
 const Loading = () => {
   return (
     <Layout
@@ -51,12 +60,37 @@ const CopyBtn = ({ text, disabled = false }: { text: string; disabled?: boolean 
 const Email = ({ userInfo, setUserInfo }: { userInfo: UserInfo | null, setUserInfo: (info: UserInfo) => void }) => {
   const [generateBtnStatus, setGenerateBtnStatus] = useState<boolean>(false)
   const { t } = useTranslation('')
+  const saveAliasToHistory = (alias: string) => {
+    try {
+      const savedAliases = localStorage.getItem('ddg_aliases')
+      const aliases: AliasItem[] = savedAliases ? JSON.parse(savedAliases) : []
+      
+      const existingAlias = aliases.find(a => a.alias === alias)
+      if (!existingAlias) {
+        const newAlias: AliasItem = {
+          id: Date.now().toString(),
+          alias,
+          createdAt: new Date().toISOString(),
+          isActive: true,
+          usageCount: 0,
+          description: 'generated from email page'
+        }
+        
+        aliases.unshift(newAlias)
+        localStorage.setItem('ddg_aliases', JSON.stringify(aliases))
+      }
+    } catch (error) {
+      console.error('[email] failed to save alias')
+    }
+  }
+
   const generateAddressesHandle = () => {
     setGenerateBtnStatus(true)
     generateAddresses(userInfo?.access_token || '')
       .then((res) => {
         const result = store.editAccount(0, { nextAlias: res.address })
         setUserInfo(result)
+        saveAliasToHistory(res.address)
       })
       .catch((res) => {
         if (res?.status) {

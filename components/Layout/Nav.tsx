@@ -19,6 +19,9 @@ import {
   GlobeAltIcon,
   InformationCircleIcon,
   PaperAirplaneIcon,
+  HomeIcon,
+  EnvelopeIcon,
+  RectangleStackIcon,
 } from '@heroicons/react/24/outline'
 import { FiGithub } from 'react-icons/fi'
 
@@ -60,6 +63,18 @@ const navItem: NavItem[] = [
     icon: <PaperAirplaneIcon />,
     href: '#',
     router: '/formatter',
+  },
+  {
+    title: 'aliases',
+    icon: <RectangleStackIcon />,
+    href: '#',
+    router: '/aliases',
+  },
+  {
+    title: 'settings',
+    icon: <CogIcon />,
+    href: '#',
+    router: '/settings',
   },
   {
     title: 'nav.account',
