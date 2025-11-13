@@ -1,13 +1,14 @@
 # DDG Email Panel
 
-<a href='https://github.com/whatk233/ddg-email-panel/blob/main/README-CN.md'>简体中文</a>
-
 > Open source unofficial [DuckDuckGo Email Protection](https://duckduckgo.com/email) panel.
 
-![GitHub Repo stars](https://img.shields.io/github/stars/whatk233/ddg-email-panel?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/isyuricunha/ddg-email-panel?style=social)
 
-![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-black?style=for-the-badge&logo=Vercel&logoColor=white) ![GitHub](https://img.shields.io/github/license/whatk233/ddg-email-panel?style=for-the-badge) ![Docker Pulls](https://img.shields.io/docker/pulls/whatk233/ddg-email-panel?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-black?style=for-the-badge&logo=Vercel&logoColor=white) ![GitHub](https://img.shields.io/github/license/isyuricunha/ddg-email-panel?style=for-the-badge)
 
+## 🍴 Fork Information
+
+This is a fork of the [original project](https://github.com/whatk233/ddg-email-panel) by [Whatk](https://github.com/whatk233), now maintained by [Yuri Cunha](https://github.com/isyuricunha).
 
 > **Warning**   
 > DDG Email Panel is a community open-source management panel for DuckDuckGo Email Protection. Although it is not officially owned by DuckDuckGo, we still respect your privacy and will not store or sell any personal information.
@@ -17,27 +18,28 @@
 ## ⭐ Features
 * No need to install DuckDuckGo browser extension
 * Supports all modern browsers
-* PWA
+* PWA support
 * Generate new privacy aliases
 * No user information is stored on the server side
-* Multi-language support
+* Multi-language support (English, Chinese, Japanese, Portuguese)
 * Night Mode
 
 ## 📒 Todo
 * Multi-account management
-* History alias management, notes
+* History alias management and notes
 * Change forwarding address
 * DuckDuckGo Email account cancellation
 
-## 🌏 Our hosted
-* [DDG Email Panel](http://ddgep.whatk.me/)
-* [DDG Email Panel (vercel.app subdomain)](https://ddgep.vercel.app/)
-
+## 🌏 Hosted Instance
+* [DDG Email Panel](https://ddg-email-panel.yuricunha.com)
 
 ## 🚀 Quick Deployment
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwhatk233%2Fddg-email-panel&demo-title=DDG%20Email%20Panel&demo-description=DDG%20Email%20Panel%20is%20the%20open%20source%20unofficial%20DuckDuckGo%20Email%20Protection%20panel.&demo-url=https%3A%2F%2Fddgep.whatk.me)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fisyuricunha%2Fddg-email-panel&demo-title=DDG%20Email%20Panel&demo-description=DDG%20Email%20Panel%20is%20the%20open%20source%20unofficial%20DuckDuckGo%20Email%20Protection%20panel.&demo-url=https%3A%2F%2Fddg-email-panel.yuricunha.com)
 
 ## ⚓ Docker Deployment
+
+> **Note**: Docker images are available from the [original repository](https://github.com/whatk233/ddg-email-panel). To build your own image from this fork, use the provided Dockerfile.
+
 ```shell
 docker run -d --restart=always -p 3000:3000 --name ddg-email-panel whatk233/ddg-email-panel
 ```
@@ -48,32 +50,27 @@ docker run -d --restart=always -p 3000:3000 --name ddg-email-panel whatk233/ddg-
 * Node.js 16 or newer
 
 ```bash
-git clone https://github.com/whatk233/ddg-email-panel.git
+git clone https://github.com/isyuricunha/ddg-email-panel.git
 cd ddg-email-panel
 
-#pnpm
+# pnpm
 pnpm install
 pnpm build
 pnpm start
 
-#yarn
+# yarn
 yarn install
 yarn build
 yarn start
 
-#npm
+# npm
 npm install
 npm run build
 npm run start
-
 ```
 
-## ❤️ Donate
-<a href='https://ko-fi.com/whatk' target='_blank'>Buy Me a Coffee</a> · <a href='https://afdian.net/@whatk' target='_blank'>爱发电</a>
-
-## License
+## 📝 License
 MIT
 
-<hr />
-
-Made with ♥ by <a href='https://whatk.me' target='_blank'>Whatk</a>
+## 🙏 Credits
+Originally created with ♥ by [Whatk](https://github.com/whatk233)

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const cp = require('node:child_process')
 
 module.exports = async (nextConfig) => {
@@ -16,7 +15,7 @@ module.exports = async (nextConfig) => {
       .toString()
       .trim()
   } catch {
-    console.error(`[GetGitCommitInfo] fail!`)
+    console.error('[getgitcommitinfo] failed to get git information')
   }
   return Object.assign(nextConfig, { env: nextEnv })
 }
