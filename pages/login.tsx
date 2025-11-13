@@ -65,7 +65,7 @@ const EnterUsername = () => {
         setStep('EnterOtp')
       })
       .catch((res) => {
-        console.log('send login link error', res)
+        console.error('[login] send login link failed')
         if (res?.status) {
           toast.error(`${res.status} - ${res.statusText}`)
         } else {
@@ -193,7 +193,7 @@ const EnterOtp = () => {
           toast.success(t('Login Success'))
         })
         .catch((res) => {
-          console.log('generate alias error', res)
+          console.error('[login] generate alias failed')
           toast.error(t('The access token cannot generate an alias'))
           setLoading(false)
           return
@@ -221,7 +221,7 @@ const EnterOtp = () => {
             router.push(`/email/?id=${userIndex}`)
           })
           .catch((res) => {
-            console.log('generate alias error', res)
+            console.error('[login] generate alias failed')
             const userIndex = store.addAccount({
               ...user,
               remark: maskEmail(user.email),
@@ -236,7 +236,7 @@ const EnterOtp = () => {
           })
       })
       .catch((res) => {
-        console.log('login error', res)
+        console.error('[login] authentication failed')
         if (res?.status) {
           if (res?.status === 401) {
             toast.error(t('Unauthorized'))

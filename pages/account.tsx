@@ -11,10 +11,12 @@ import * as store from '../utils/store'
 const AccountPage: NextPage = () => {
   const router = useRouter()
   const { t } = useTranslation('')
-  const authData = useAuth(true)
+  const authData = useAuth(false)
   const userInfo = authData?.userInfo
+  const loading = authData?.loading
   
   const [showTokens, setShowTokens] = useState(false)
+  
 
   return (
     <Layout
@@ -36,7 +38,12 @@ const AccountPage: NextPage = () => {
               <h2 className="text-lg font-semibold text-gray-200">profile information</h2>
             </div>
             
-            {userInfo ? (
+            {loading ? (
+              <div className="text-center py-8">
+                <UserIcon className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-500 text-sm">loading profile information...</p>
+              </div>
+            ) : userInfo ? (
               <div className="space-y-3">
                 <div className="bg-pure-darker rounded-xl p-4 border border-white/5">
                   <p className="text-sm font-medium text-gray-400 mb-1">username</p>
@@ -55,8 +62,14 @@ const AccountPage: NextPage = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <UserIcon className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm">loading profile information...</p>
+                <UserIcon className="w-12 h-12 text-red-500 mx-auto mb-3" />
+                <p className="text-red-400 text-sm">no user data found</p>
+                <button
+                  onClick={() => router.push('/login')}
+                  className="mt-2 text-accent-orange hover:text-accent-yellow text-sm underline"
+                >
+                  go to login
+                </button>
               </div>
             )}
           </div>
