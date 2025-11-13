@@ -1,27 +1,48 @@
 {
   "name": "DDG Email Panel",
-  "short_name": "DDG Email Panel",
-  "display_override": ["window-controls-overlay"],
-  "icons": [
-    {
-      "src": "/icons/192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "short_name": "DDG Panel",
+  "description": "DDG Email Panel is the open source unofficial DuckDuckGo Email Protection panel.",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "background_color": "#000000",
+  "theme_color": "#ea580c",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Generate Alias",
+      "short_name": "Generate",
+      "description": "Generate a new duck alias",
+      "url": "/email",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Manage Aliases",
+      "short_name": "Aliases",
+      "description": "Manage your duck aliases",
+      "url": "/aliases",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your email statistics",
+      "url": "/dashboard",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
 }

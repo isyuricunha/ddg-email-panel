@@ -22,6 +22,7 @@ import {
   HomeIcon,
   EnvelopeIcon,
   RectangleStackIcon,
+  ChartBarIcon
 } from '@heroicons/react/24/outline'
 import { FiGithub } from 'react-icons/fi'
 
@@ -52,6 +53,12 @@ const notLoginNavItem: NavItem[] = [
 ]
 
 const navItem: NavItem[] = [
+  {
+    title: 'dashboard',
+    icon: <ChartBarIcon />,
+    href: '#',
+    router: '/dashboard',
+  },
   {
     title: 'nav.address',
     icon: <AtSymbolIcon />,
