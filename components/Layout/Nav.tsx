@@ -147,7 +147,7 @@ const NavLink = ({
   const [uid] = useAtom(uidAtom)
   const { t } = useTranslation('')
   const uRouter = useRouter()
-  const classNames = `flex items-center p-2 rounded-md group hover:bg-slate-200 dark:hover:bg-slate-700`
+  const classNames = `flex items-center px-3 py-2.5 rounded-lg group hover:bg-white/5 transition-all duration-200`
   if (router) {
     return (
       <button
@@ -193,12 +193,12 @@ function BottomMenu({
     <Menu>
       <Menu.Button
         type="button"
-        className="flex items-center w-full p-2 rounded-md group hover:bg-slate-200 dark:hover:bg-slate-700"
+        className="flex items-center w-full px-3 py-2.5 rounded-lg group hover:bg-white/5 transition-all duration-200"
       >
         <span className="w-5">{icon}</span>
-        <span className="pl-3">{title}</span>
+        <span className="pl-3 text-gray-300">{title}</span>
       </Menu.Button>
-      <Menu.Items className="absolute top-0 w-full h-full overflow-y-auto bg-slate-100 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-slate-300 scrollbar-thumb-rounded-full scrollbar-track-rounded-full dark:bg-slate-800">
+      <Menu.Items className="absolute top-0 w-full h-full overflow-y-auto bg-pure-darker scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
         {children}
       </Menu.Items>
     </Menu>
@@ -207,8 +207,8 @@ function BottomMenu({
 
 function BottomMenuItem({ icon, title, href, locale, handle }: BottomNavItem) {
   const { t } = useTranslation('')
-  const classNames = `w-full group flex items-center rounded-md p-2 dark:hover:bg-slate-700`
-  const activeClassNames = `bg-slate-200 dark:hover:bg-slate-700`
+  const classNames = `w-full group flex items-center rounded-lg px-3 py-2.5 hover:bg-white/5 transition-all duration-200`
+  const activeClassNames = `bg-white/10`
   const attrs = {} as {
     locale: string
     onClick: () => void
@@ -250,11 +250,11 @@ export function NavSwitch() {
       onClick={() => {
         setIsOpen(!isOpen)
       }}
-      className="w-8 p-1 rounded lg:hidden hover:bg-slate-100 dark:hover:bg-slate-700"
+      className="w-9 h-9 flex items-center justify-center rounded-lg lg:hidden hover:bg-white/5 transition-all duration-200"
       aria-label={isOpen ? 'close navigation menu' : 'open navigation menu'}
       aria-expanded={isOpen}
     >
-      <Bars3Icon className="fill-slate-700" aria-hidden="true" />
+      <Bars3Icon className="w-6 h-6 text-gray-300" aria-hidden="true" />
     </button>
   )
 }
@@ -264,13 +264,13 @@ function NavMain() {
   const { t } = useTranslation('')
   return (
     <>
-      <div className="flex items-center justify-center pb-8">
-        <Image src={Logo} alt="Logo" className="w-12" />
-        <span className="ml-4 text-lg">DDG Email Panel</span>
+      <div className="flex items-center justify-center pb-8 pt-2">
+        <Image src={Logo} alt="Logo" className="w-10" />
+        <span className="ml-3 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow">DDG Email</span>
       </div>
       <div className="flex flex-col justify-between h-[calc(100vh_-_232px)] md:h-[calc(100vh_-_132px)]">
         <div className="grid items-start gap-1">
-          {uRouter.route == '/login'
+          {uRouter.route === '/login'
             ? notLoginNavItem.map((item, index) => <NavLink key={index} {...item} />)
             : navItem.map((item, index) => <NavLink key={index} {...item} />)}
         </div>
@@ -292,10 +292,10 @@ function NavMain() {
               })}
               icon={<InformationCircleIcon />}
             >
-              <div className="flex flex-col">
-                <span className="mb-2 font-bold">Info</span>
-                <span className="text-sm">
-                  <span className="block font-bold">Committed Date</span>
+              <div className="flex flex-col p-4">
+                <span className="mb-3 font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow">info</span>
+                <span className="text-sm text-gray-400">
+                  <span className="block font-semibold text-gray-300 mb-1">committed date</span>
                   <span className="block">
                     {process.env.NEXT_PUBLIC_GIT_LASTCOMMIT_DATE || ''}
                   </span>
@@ -347,7 +347,7 @@ export default function Nav() {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <aside className="z-10 w-64 min-h-screen p-5 overflow-hidden shrink-0 bg-slate-100 dark:bg-slate-800 dark:text-slate-300">
+            <aside className="z-10 w-72 min-h-screen p-6 overflow-hidden shrink-0 bg-pure-darker border-r border-white/5">
               <NavMain />
             </aside>
           </Transition.Child>
@@ -355,7 +355,7 @@ export default function Nav() {
       </Transition>
 
       <aside
-        className={`hidden lg:block min-h-screen overflow-hidden shrink-0 w-64 p-5 bg-slate-100 dark:bg-slate-800 dark:text-slate-300`}
+        className={`hidden lg:block min-h-screen overflow-hidden shrink-0 w-72 p-6 bg-pure-darker border-r border-white/5`}
       >
         <NavMain />
       </aside>

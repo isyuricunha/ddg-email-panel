@@ -17,18 +17,26 @@ const EmailPage: NextPage = () => {
       title={t('nav.account')}
       className="flex flex-col h-[calc(100vh_-_120px)] items-center justify-center"
     >
-      {t('Coming soon')}
-      <button
-        className={`flex items-center justify-center bg-red-600 hover:bg-red-500 dark:text-slate-300 dark:bg-red-700 dark:hover:bg-red-600 shadow rounded-md px-4 py-2 my-3 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 disabled:bg-slate-400 hover:disabled:bg-slate-400 disabled:cursor-not-allowed`}
-        onClick={() => {
-          store.clear()
-          router.reload()
-        }}
-        aria-label={t('Log Out')}
-      >
-        <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-        {t('Log Out')}
-      </button>
+      <div className="flex flex-col items-center gap-8 max-w-md">
+        <div className="glass-effect rounded-2xl p-8 border border-white/10 text-center">
+          <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
+            {t('Coming soon')}
+          </p>
+          <p className="text-gray-400 text-sm">more features on the way</p>
+        </div>
+        
+        <button
+          className="flex items-center justify-center px-6 py-3 font-medium text-white rounded-xl transition-all duration-200 bg-red-600/80 hover:bg-red-500 shadow-lg shadow-red-600/20 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-pure-black disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={() => {
+            store.clear()
+            router.reload()
+          }}
+          aria-label={t('Log Out')}
+        >
+          <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+          {t('Log Out')}
+        </button>
+      </div>
     </Layout>
   )
 }

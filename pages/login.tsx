@@ -50,7 +50,7 @@ const EnterUsername = () => {
     setUsername(event.target.value)
   const continueHandle = (event: { preventDefault: () => void }) => {
     event.preventDefault()
-    if (username == '') {
+    if (username === '') {
       toast.error(t('Duck Address cannot be empty'))
       return
     }
@@ -76,7 +76,7 @@ const EnterUsername = () => {
       .finally(() => setLoading(false))
   }
   const continueUseTokenHandle = () => {
-    if (username == '') {
+    if (username === '') {
       toast.error(t('Duck Address cannot be empty'))
       return
     }
@@ -89,35 +89,37 @@ const EnterUsername = () => {
   }
   return (
     <>
-      <div className="text-center">
-        <h4>{t('Enter your Duck Address')}</h4>
-        <p className="text-gray-500">{t('login tip')}</p>
+      <div className="text-center mb-8">
+        <h4 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-3">
+          {t('Enter your Duck Address')}
+        </h4>
+        <p className="text-gray-400">{t('login tip')}</p>
       </div>
       <form onSubmit={continueHandle}>
-        <div className="flex flex-col items-center rounded-lg w-full md:w-[500px] md:p-10 p-5">
+        <div className="flex flex-col items-center w-full md:w-[500px] p-8 glass-effect rounded-2xl border border-white/10">
           {/* input */}
-          <div className="relative w-full my-8 mt-1 rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <EnvelopeIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+          <div className="relative w-full mb-6">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+              <EnvelopeIcon className="w-5 h-5 text-gray-500" aria-hidden="true" />
             </div>
             <input
               type="text"
               value={username}
               onChange={usernameHandleChange}
               placeholder={t('Duck Address')}
-              className="block w-full rounded-md border-gray-300 pl-10 pr-[98px] focus:border-slate-500 focus:ring-slate-500 sm:text-sm dark:border-gray-500 dark:bg-gray-900 dark:text-slate-400"
+              className="block w-full rounded-xl bg-pure-dark border border-white/10 pl-11 pr-[100px] py-3 text-gray-100 placeholder-gray-500 focus:border-accent-orange/50 focus:ring-2 focus:ring-accent-orange/30 focus:outline-none transition-all duration-200"
             />
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <span className="inline-flex items-center h-full px-3 text-gray-500 border border-gray-300 dark:border-gray-500 rounded-r-md bg-gray-50 dark:bg-gray-800 dark:text-slate-400 sm:text-sm">
+            <div className="absolute inset-y-0 right-0 flex items-center pr-px">
+              <span className="inline-flex items-center h-full px-4 text-gray-400 border-l border-white/10 bg-pure-darker rounded-r-xl text-sm">
                 @duck.com
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-1 divide-y-2 w-full">
+          <div className="flex flex-col gap-3 w-full">
             <button
               type="submit"
               disabled={loading}
-              className="flex items-center justify-center w-full px-4 py-2 text-white rounded-md shadow dark:text-slate-300 bg-sky-600 dark:bg-sky-700 dark:hover:bg-sky-600 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-600 disabled:bg-slate-400 dark:disabled:bg-slate-400 hover:disabled:bg-slate-400 dark:hover:disabled:bg-slate-400 disabled:cursor-not-allowed"
+              className="flex items-center justify-center w-full px-6 py-3.5 text-base font-semibold text-white rounded-xl transition-all duration-200 bg-gradient-to-r from-accent-orange to-accent-yellow hover:from-accent-orange-light hover:to-accent-yellow shadow-lg shadow-accent-orange/20 focus:outline-none focus:ring-2 focus:ring-accent-orange/50 focus:ring-offset-2 focus:ring-offset-pure-black disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-accent-orange disabled:hover:to-accent-yellow"
             >
               {loading ? (
                 <>
@@ -128,18 +130,19 @@ const EnterUsername = () => {
                 t('login')
               )}
             </button>
-            <a
+            <button
+              type="button"
               onClick={() => {
                 continueUseTokenHandle()
               }}
-              className="flex items-center justify-center w-full px-4 py-2 text-sky-600 hover:underline underline-offset-2 dark:text-slate-300 cursor-pointer"
+              className="flex items-center justify-center w-full px-6 py-3 text-sm font-medium text-gray-300 hover:text-accent-yellow hover:bg-white/5 rounded-xl transition-all duration-200"
             >
               {t('Login using Access Token')}
-            </a>
+            </button>
           </div>
           <Link
             href="https://duckduckgo.com/email/start"
-            className="mt-3 text-gray-600 hover:underline underline-offset-2 hover:text-sky-500 dark:text-gray-500"
+            className="mt-4 text-gray-400 hover:text-accent-yellow hover:underline underline-offset-2 transition-colors duration-200"
             target="_blank"
             passHref
             rel="noopener noreferrer"
@@ -164,7 +167,7 @@ const EnterOtp = () => {
   const otpHandleChange = (event: { target: { value: string } }) => setOtp(event.target.value)
   const continueHandle = (event: { preventDefault: () => void }) => {
     event.preventDefault()
-    if (otp == '') {
+    if (otp === '') {
       toast.error(t('One-time Passphrase cannot be empty'))
       return
     }
@@ -207,7 +210,6 @@ const EnterOtp = () => {
             username: string
           }
         }
-        // generate alias
         generateAddresses(user.access_token)
           .then((res) => {
             const userIndex = store.addAccount({
@@ -236,7 +238,7 @@ const EnterOtp = () => {
       .catch((res) => {
         console.log('login error', res)
         if (res?.status) {
-          if (res?.status == 401) {
+          if (res?.status === 401) {
             toast.error(t('Unauthorized'))
           } else {
             toast.error(`${res.status} - ${res.statusText}`)
@@ -250,16 +252,18 @@ const EnterOtp = () => {
   }
   return (
     <>
-      <div className="text-center">
-        <h4>{loginMethod === 'username' ? t('Check your inbox') : t('Enter your Access Token')}</h4>
-        <p className="text-gray-500">
+      <div className="text-center mb-8">
+        <h4 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-3">
+          {loginMethod === 'username' ? t('Check your inbox') : t('Enter your Access Token')}
+        </h4>
+        <p className="text-gray-400">
           {loginMethod === 'username' ? (
             t(
               'DuckDuckGo One-time Passphrase has been sent to your email address, please enter it below and continue'
             )
           ) : (
             <Link
-              className="mt-2 underline underline-offset-2 hover:text-sky-500"
+              className="text-accent-yellow hover:text-accent-orange underline underline-offset-2 transition-colors duration-200"
               href="https://bitwarden.com/help/generator/#tab-duckduckgo-3Uj911RtQsJD9OAhUuoKrz"
               target="_blank"
             >
@@ -269,14 +273,13 @@ const EnterOtp = () => {
         </p>
       </div>
       <form onSubmit={continueHandle}>
-        <div className="flex flex-col items-center rounded-lg w-full md:w-8/12 lg:w-[500px] md:p-10 p-5">
-          {/* input */}
-          <div className="relative w-full my-8 mt-1 rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <KeyIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+        <div className="flex flex-col items-center w-full md:w-[500px] p-8 glass-effect rounded-2xl border border-white/10">
+          <div className="relative w-full mb-6">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+              <KeyIcon className="w-5 h-5 text-gray-500" aria-hidden="true" />
             </div>
             <input
-              className="block w-full rounded-md border-gray-300 pl-10 pr-10 focus:border-slate-500 focus:ring-slate-500 sm:text-sm dark:border-gray-500 dark:bg-gray-900 dark:text-slate-400"
+              className="block w-full rounded-xl bg-pure-dark border border-white/10 pl-11 pr-4 py-3 text-gray-100 placeholder-gray-500 focus:border-accent-orange/50 focus:ring-2 focus:ring-accent-orange/30 focus:outline-none transition-all duration-200"
               type="text"
               value={otp}
               onChange={otpHandleChange}
@@ -287,29 +290,32 @@ const EnterOtp = () => {
               }
             />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="flex items-center justify-center w-full px-4 py-2 text-white rounded-md shadow dark:text-slate-300 bg-sky-600 dark:bg-sky-700 dark:hover:bg-sky-600 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-600 disabled:bg-slate-400 dark:disabled:bg-slate-400 hover:disabled:bg-slate-400 dark:hover:disabled:bg-slate-400 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <>
-                <CgSpinner className="w-5 h-5 mr-2 animate-spin" />
-                {t('loading')}
-              </>
-            ) : (
-              t('Continue')
-            )}
-          </button>
-          <button
-            className="mt-3 text-gray-600 hover:underline underline-offset-2 hover:text-sky-500"
-            onClick={() => {
-              setOtp('')
-              setStep('EnterUsername')
-            }}
-          >
-            {t('Back')}
-          </button>
+          <div className="flex flex-col gap-3 w-full">
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex items-center justify-center w-full px-6 py-3.5 text-base font-semibold text-white rounded-xl transition-all duration-200 bg-gradient-to-r from-accent-orange to-accent-yellow hover:from-accent-orange-light hover:to-accent-yellow shadow-lg shadow-accent-orange/20 focus:outline-none focus:ring-2 focus:ring-accent-orange/50 focus:ring-offset-2 focus:ring-offset-pure-black disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-accent-orange disabled:hover:to-accent-yellow"
+            >
+              {loading ? (
+                <>
+                  <CgSpinner className="w-5 h-5 mr-2 animate-spin" />
+                  {t('loading')}
+                </>
+              ) : (
+                t('Continue')
+              )}
+            </button>
+            <button
+              type="button"
+              className="flex items-center justify-center w-full px-6 py-3 text-sm font-medium text-gray-300 hover:text-accent-yellow hover:bg-white/5 rounded-xl transition-all duration-200"
+              onClick={() => {
+                setOtp('')
+                setStep('EnterUsername')
+              }}
+            >
+              {t('Back')}
+            </button>
+          </div>
         </div>
       </form>
     </>
@@ -325,14 +331,23 @@ const LoginPage: NextPage = () => {
         title={t('login')}
         className="flex flex-col h-[calc(100vh_-_120px)] items-center justify-center"
       >
-        {step == 'EnterUsername' ? <EnterUsername /> : <EnterOtp />}
-        <div className="mt-10 text-sm alert-warn lg:mx-24">
-          {t('DDG Email Panel respects your privacy')}
+        {step === 'EnterUsername' ? <EnterUsername /> : <EnterOtp />}
+        <div className="mt-8 max-w-2xl">
+          <div className="alert-warn rounded-xl text-sm text-center">
+            {t('DDG Email Panel respects your privacy')}
+          </div>
         </div>
       </Layout>
     )
   }
-  return <>loading...</>
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-pure-black">
+      <div className="flex flex-col items-center gap-4">
+        <CgSpinner className="w-10 h-10 text-accent-orange animate-spin" />
+        <span className="text-gray-400 text-sm">loading...</span>
+      </div>
+    </div>
+  )
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {

@@ -24,20 +24,38 @@ export default function Layout({
         <meta property="og:description" content={t('DDG Email Introduction')} />
         <meta name="description" content={t('DDG Email Introduction')} />
       </Head>
-      <div className="relative flex flex-row h-screen overflow-hidden dark:bg-slate-900 dark:text-slate-300">
+      <div className="relative flex flex-row h-screen overflow-hidden bg-pure-black">
         <Nav />
-        <main className="w-full overflow-auto">
-          <div className="flex items-center w-full px-4 bg-white dark:bg-slate-900 h-14">
+        <main className="w-full overflow-auto bg-pure-black">
+          <div className="flex items-center w-full px-6 h-16 bg-pure-darker/30 backdrop-blur-sm border-b border-white/5">
             <NavSwitch />
-            <div className="ml-2 lg:hidden">DDG Email Panel</div>
+            <div className="ml-3 lg:hidden font-semibold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow">
+              DDG Email Panel
+            </div>
           </div>
-          <div className={`px-8 py-4 ${className ? className : ''}`}>{children}</div>
+          <div className={`px-8 py-6 ${className ? className : ''}`}>{children}</div>
         </main>
       </div>
       <Toaster
+        position="bottom-right"
         toastOptions={{
-          className:
-            'dark:bg-slate-800 dark:text-slate-300 dark:border-2 dark:border-slate-700 dark:shadow-xl',
+          className: 'glass-effect border border-white/10 text-gray-100',
+          style: {
+            background: 'rgba(10, 10, 10, 0.8)',
+            backdropFilter: 'blur(12px)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#eab308',
+              secondary: '#000000',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#000000',
+            },
+          },
         }}
       />
     </>
