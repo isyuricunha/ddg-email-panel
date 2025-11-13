@@ -18,6 +18,7 @@ import {
   SunIcon,
   GlobeAltIcon,
   InformationCircleIcon,
+  PaperAirplaneIcon,
 } from '@heroicons/react/24/outline'
 import { FiGithub } from 'react-icons/fi'
 
@@ -53,6 +54,12 @@ const navItem: NavItem[] = [
     icon: <AtSymbolIcon />,
     href: '#',
     router: '/email',
+  },
+  {
+    title: 'email formatter',
+    icon: <PaperAirplaneIcon />,
+    href: '#',
+    router: '/formatter',
   },
   {
     title: 'nav.account',
