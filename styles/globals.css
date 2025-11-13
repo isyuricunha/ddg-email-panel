@@ -55,4 +55,9 @@ body {
   .alert-error {
     @apply alert-base border-red-500 bg-red-100 p-4 text-red-600 shadow-red-500/30 dark:bg-red-100/70 dark:text-red-700 dark:shadow-red-500/30;
   }
+
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
 }

@@ -251,8 +251,10 @@ export function NavSwitch() {
         setIsOpen(!isOpen)
       }}
       className="w-8 p-1 rounded lg:hidden hover:bg-slate-100 dark:hover:bg-slate-700"
+      aria-label={isOpen ? 'close navigation menu' : 'open navigation menu'}
+      aria-expanded={isOpen}
     >
-      <Bars3Icon className="fill-slate-700" />
+      <Bars3Icon className="fill-slate-700" aria-hidden="true" />
     </button>
   )
 }

@@ -1,23 +1,22 @@
 import { UserInfo } from '../types'
+import { secureGetItem, secureSetItem, secureClear } from './encryption'
 
 export function getAccount(index: number) {
-  const data = localStorage.getItem('user')
+  const data = secureGetItem('user')
   if (!data) {
-    console.error('Account not found')
+    console.error('[store] account not found')
     return null
   }
-  const obj = JSON.parse(data)
-  return obj[index]
+  return data[index]
 }
 
 export function getAllAccount() {
-  const user = localStorage.getItem('user')
+  const user = secureGetItem('user')
   if (!user) {
-    console.error('Account not found')
+    console.error('[store] account not found')
     return null
   }
-  const obj = JSON.parse(user)
-  return obj
+  return user
 }
 
 export function addAccount({
@@ -42,13 +41,12 @@ export function addAccount({
   }
   const allUser = getAllAccount()
   if (!allUser) {
-    localStorage.setItem('user', JSON.stringify([userInfo]))
+    secureSetItem('user', [userInfo])
     return 0
   } else {
-    const obj = JSON.parse(allUser)
-    obj.push(userInfo)
-    localStorage.setItem('user', JSON.stringify(obj))
-    return obj.length - 1
+    allUser.push(userInfo)
+    secureSetItem('user', allUser)
+    return allUser.length - 1
   }
 }
 
@@ -56,14 +54,15 @@ export function editAccount(index: number, userInfo: UserInfo) {
   const allUser = getAllAccount()
   const user = allUser[index]
   if (!allUser[index]) {
-    console.error('Account not found')
+    console.error('[store] account not found')
     return false
   }
   allUser[index] = { ...user, ...userInfo }
-  localStorage.setItem('user', JSON.stringify(allUser))
+  secureSetItem('user', allUser)
   return allUser[index]
 }
 
 export function clear() {
+  secureClear()
   return localStorage.clear()
 }

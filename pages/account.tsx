@@ -1,36 +1,16 @@
 import type { GetStaticProps, NextPage } from 'next'
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import Layout from '../components/Layout/Layout'
+import { useAuth } from '../hooks/useAuth'
 import * as store from '../utils/store'
 
 const EmailPage: NextPage = () => {
   const router = useRouter()
   const { t } = useTranslation('')
-
-  useEffect(() => {
-    const { id } = router.query
-    if (!id && localStorage.lastuser) {
-      router.push({
-        query: {
-          id: Number(localStorage.lastuser),
-        },
-      })
-    }
-    const userInfo = store.getAccount(Number(id))
-    if (!userInfo) {
-      if (Number(id) !== 0 && store.getAccount(0)) {
-        router.push({
-          query: { id: 0 },
-        })
-      } else {
-        router.push('/login')
-      }
-    }
-  }, [router])
+  useAuth()
 
   return (
     <Layout
@@ -44,8 +24,9 @@ const EmailPage: NextPage = () => {
           store.clear()
           router.reload()
         }}
+        aria-label={t('Log Out')}
       >
-        <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" />
+        <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" aria-hidden="true" />
         {t('Log Out')}
       </button>
     </Layout>
