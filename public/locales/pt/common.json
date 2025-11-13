@@ -139,5 +139,16 @@
     "logout": "sair",
     "signIn": "fazer login",
     "signOut": "sair"
-  }
+  },
+  "login": "entrar",
+  "login tip": "para começar, faça login primeiro",
+  "loading": "carregando",
+  "myemail": "email",
+  "Main Duck Address": "endereço duck principal",
+  "Private Duck Address": "endereço duck privado",
+  "Generate Private Duck Address": "gerar endereço duck privado",
+  "For untrusted websites, Privacy Duck Addresses can hide your email identity": "para sites não confiáveis, os endereços duck privados podem ocultar sua identidade de email",
+  "DDG Email Panel respects your privacy": "o painel de email ddg respeita sua privacidade",
+  "Error": "erro",
+  "Some Error": "ocorreu um erro!"
 }

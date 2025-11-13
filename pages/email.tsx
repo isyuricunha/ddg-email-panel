@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import type { UserInfo } from '../types'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -182,6 +183,8 @@ const Email = ({ userInfo, setUserInfo }: { userInfo: UserInfo | null, setUserIn
 }
 
 const EmailPage: NextPage = () => {
+  const router = useRouter()
+  const { t } = useTranslation('')
   const authData = useAuth(false)
   
   if (!authData) {
@@ -192,6 +195,25 @@ const EmailPage: NextPage = () => {
 
   if (loading) {
     return <Loading />
+  }
+
+  if (!userInfo) {
+    return (
+      <Layout
+        title={t('login')}
+        className="flex flex-col h-[calc(100vh_-_120px)] items-center justify-center"
+      >
+        <div className="text-center space-y-4">
+          <p className="text-red-400 mb-4">{t('login tip')}</p>
+          <button
+            onClick={() => router.push('/login')}
+            className="px-6 py-2 bg-accent-orange hover:bg-accent-orange-light rounded-lg text-white font-medium transition-colors duration-200"
+          >
+            {t('login')}
+          </button>
+        </div>
+      </Layout>
+    )
   }
 
   return <Email userInfo={userInfo} setUserInfo={setUserInfo} />

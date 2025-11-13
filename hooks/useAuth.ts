@@ -89,16 +89,23 @@ export function useAuth(redirectOnly = true) {
   useEffect(() => {
     const { id } = router.query
     
+    if (typeof window === 'undefined') return
+    
     if (!id && localStorage.lastuser) {
       const lastUserId = Number(localStorage.lastuser)
-      router.push({ query: { id: lastUserId } })
-      return
+      const user = store.getAccount(lastUserId)
+      if (user) {
+        router.push({ query: { id: lastUserId } })
+        return
+      }
     }
 
     if (id) {
       loadUserData(Number(id))
+    } else {
+      setLoading(false)
     }
-  }, [router.query.id, loadUserData])
+  }, [router.query.id, loadUserData, router])
 
   const authData = useMemo(() => ({
     userId,
