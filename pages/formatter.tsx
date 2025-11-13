@@ -64,16 +64,16 @@ const FormatterPage: NextPage = () => {
       <div className="space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
-            duck alias generator
+            {t('pages.formatter.title')}
           </h1>
-          <p className="text-gray-400">create unique aliases for each recipient</p>
+          <p className="text-gray-400">{t('pages.formatter.subtitle')}</p>
         </div>
         
         <div className="glass-effect rounded-2xl p-8 border border-white/10">
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">recipient email</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">{t('pages.formatter.recipientEmail')}</label>
                 <input
                   type="email"
                   value={toEmail}
@@ -84,7 +84,7 @@ const FormatterPage: NextPage = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">your duck username</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">{t('pages.formatter.yourDuckUsername')}</label>
                 <input
                   type="text"
                   value={fromAlias}
@@ -98,19 +98,19 @@ const FormatterPage: NextPage = () => {
             {toEmail && fromAlias ? (
               <div className="space-y-6 pt-4 border-t border-white/10">
                 <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-3">generated alias</p>
+                  <p className="text-sm text-gray-400 mb-3">{t('pages.formatter.generatedAlias')}</p>
                   <div className="bg-gradient-to-r from-accent-orange to-accent-yellow rounded-xl p-6">
                     <p className="text-black font-mono text-2xl font-bold break-all mb-4">
                       {generateDuckAlias()}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                      <CopyButton text={generateDuckAlias()} label="copy alias" variant="primary" />
+                      <CopyButton text={generateDuckAlias()} label={t('pages.formatter.copyAlias')} variant="primary" />
                       <a
                         href={`mailto:${toEmail}?from=${generateDuckAlias()}`}
                         className="inline-flex items-center justify-center px-6 py-2 text-sm font-semibold text-white rounded-lg transition-all duration-200 bg-black/20 hover:bg-black/30 border border-black/20"
                       >
                         <PaperAirplaneIcon className="w-4 h-4 mr-2" />
-                        compose email
+                        {t('pages.formatter.composeEmail')}
                       </a>
                     </div>
                   </div>
@@ -119,14 +119,14 @@ const FormatterPage: NextPage = () => {
             ) : (
               <div className="text-center py-12 border-t border-white/10">
                 <EnvelopeIcon className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-400">enter email details above to generate your duck alias</p>
+                <p className="text-gray-400">{t('pages.formatter.enterEmailDetails')}</p>
               </div>
             )}
           </div>
         </div>
         
         <div className="text-center text-sm text-gray-500">
-          <p>this creates a unique alias that forwards to your main duck address</p>
+          <p>{t('pages.formatter.uniqueAliasInfo')}</p>
         </div>
       </div>
     </Layout>

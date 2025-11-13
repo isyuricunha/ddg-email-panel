@@ -54,7 +54,7 @@ const notLoginNavItem: NavItem[] = [
 
 const navItem: NavItem[] = [
   {
-    title: 'dashboard',
+    title: 'nav.dashboard',
     icon: <ChartBarIcon />,
     href: '#',
     router: '/dashboard',
@@ -66,19 +66,19 @@ const navItem: NavItem[] = [
     router: '/email',
   },
   {
-    title: 'email formatter',
+    title: 'nav.formatter',
     icon: <PaperAirplaneIcon />,
     href: '#',
     router: '/formatter',
   },
   {
-    title: 'aliases',
+    title: 'nav.aliases',
     icon: <RectangleStackIcon />,
     href: '#',
     router: '/aliases',
   },
   {
-    title: 'settings',
+    title: 'nav.settings',
     icon: <CogIcon />,
     href: '#',
     router: '/settings',

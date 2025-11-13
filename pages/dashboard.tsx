@@ -169,7 +169,7 @@ const DashboardPage: NextPage = () => {
       <Layout title="dashboard" className="px-8 py-6 max-w-7xl mx-auto">
         <div className="text-center py-12">
           <div className="w-8 h-8 border-2 border-accent-orange border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">loading dashboard...</p>
+          <p className="text-gray-400">{t('pages.dashboard.loadingDashboard')}</p>
         </div>
       </Layout>
     )
@@ -179,12 +179,12 @@ const DashboardPage: NextPage = () => {
     return (
       <Layout title="dashboard" className="px-8 py-6 max-w-7xl mx-auto">
         <div className="text-center py-12">
-          <p className="text-red-400 mb-4">please login to view dashboard</p>
+          <p className="text-red-400 mb-4">{t('pages.dashboard.pleaseLogin')}</p>
           <button
             onClick={() => router.push('/login')}
             className="px-6 py-2 bg-accent-orange hover:bg-accent-orange-light rounded-lg text-white font-medium transition-colors duration-200"
           >
-            go to login
+            {t('pages.dashboard.goToLogin')}
           </button>
         </div>
       </Layout>
@@ -199,37 +199,37 @@ const DashboardPage: NextPage = () => {
       <div className="space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
-            dashboard
+            {t('pages.dashboard.title')}
           </h1>
-          <p className="text-gray-400">overview of your duck email activity</p>
+          <p className="text-gray-400">{t('pages.dashboard.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
             icon={RectangleStackIcon}
-            title="total aliases"
+            title={t('pages.dashboard.totalAliases')}
             value={stats.totalAliases}
-            subtitle="all time"
+            subtitle={t('pages.dashboard.allTime')}
           />
           <StatCard
             icon={EyeIcon}
-            title="active aliases"
+            title={t('pages.dashboard.activeAliases')}
             value={stats.activeAliases}
-            subtitle={`${stats.inactiveAliases} inactive`}
+            subtitle={`${stats.inactiveAliases} ${t('pages.dashboard.inactive')}`}
             color="green-400"
           />
           <StatCard
             icon={ArrowTrendingUpIcon}
-            title="recent aliases"
+            title={t('pages.dashboard.recentAliases')}
             value={stats.recentAliases}
-            subtitle="last 7 days"
+            subtitle={t('pages.dashboard.last7Days')}
             color="blue-400"
           />
           <StatCard
             icon={ChartBarIcon}
-            title="avg per day"
+            title={t('pages.dashboard.avgPerDay')}
             value={stats.averagePerDay}
-            subtitle="since first alias"
+            subtitle={t('pages.dashboard.sinceFirstAlias')}
             color="purple-400"
           />
         </div>
@@ -238,8 +238,8 @@ const DashboardPage: NextPage = () => {
           <div className="lg:col-span-2 glass-effect rounded-2xl p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-6">
               <ChartBarIcon className="w-5 h-5 text-accent-orange" />
-              <h2 className="text-lg font-semibold text-gray-200">activity chart</h2>
-              <span className="text-sm text-gray-500">last 7 days</span>
+              <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.activityChart')}</h2>
+              <span className="text-sm text-gray-500">{t('pages.dashboard.last7Days')}</span>
             </div>
             
             <div className="flex items-end justify-between gap-2 h-48">
@@ -263,7 +263,7 @@ const DashboardPage: NextPage = () => {
           <div className="glass-effect rounded-2xl p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-6">
               <ClockIcon className="w-5 h-5 text-accent-yellow" />
-              <h2 className="text-lg font-semibold text-gray-200">recent aliases</h2>
+              <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.recentAliasesList')}</h2>
             </div>
             
             <div className="space-y-3">
@@ -274,12 +274,12 @@ const DashboardPage: NextPage = () => {
               ) : (
                 <div className="text-center py-8">
                   <EnvelopeIcon className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-500 text-sm">no aliases created yet</p>
+                  <p className="text-gray-500 text-sm">{t('pages.dashboard.noAliasesYet')}</p>
                   <button
                     onClick={() => router.push('/email')}
                     className="mt-2 text-accent-orange hover:text-accent-yellow text-sm underline"
                   >
-                    create your first alias
+                    {t('pages.dashboard.createFirstAlias')}
                   </button>
                 </div>
               )}
@@ -290,7 +290,7 @@ const DashboardPage: NextPage = () => {
                 onClick={() => router.push('/aliases')}
                 className="w-full mt-4 px-4 py-2 text-sm font-medium text-gray-300 hover:text-accent-yellow hover:bg-white/5 rounded-lg transition-all duration-200"
               >
-                view all aliases
+                {t('pages.dashboard.manageAliases')}
               </button>
             )}
           </div>
@@ -300,16 +300,16 @@ const DashboardPage: NextPage = () => {
           <div className="glass-effect rounded-2xl p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
               <CalendarIcon className="w-5 h-5 text-accent-orange" />
-              <h2 className="text-lg font-semibold text-gray-200">timeline</h2>
+              <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.timeline')}</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="text-center p-4 bg-pure-darker rounded-lg border border-white/5">
-                <p className="text-sm text-gray-400 mb-1">first alias</p>
+                <p className="text-sm text-gray-400 mb-1">{t('pages.dashboard.firstAlias')}</p>
                 <p className="text-lg font-semibold text-gray-200">{stats.oldestAlias}@duck.com</p>
               </div>
               <div className="text-center p-4 bg-pure-darker rounded-lg border border-white/5">
-                <p className="text-sm text-gray-400 mb-1">latest alias</p>
+                <p className="text-sm text-gray-400 mb-1">{t('pages.dashboard.latestAlias')}</p>
                 <p className="text-lg font-semibold text-gray-200">{stats.newestAlias}@duck.com</p>
               </div>
             </div>
@@ -321,13 +321,13 @@ const DashboardPage: NextPage = () => {
             onClick={() => router.push('/email')}
             className="px-6 py-3 bg-gradient-to-r from-accent-orange to-accent-yellow hover:from-accent-orange-light hover:to-accent-yellow text-white font-medium rounded-xl transition-all duration-200"
           >
-            generate new alias
+            {t('pages.dashboard.generateNewAlias')}
           </button>
           <button
             onClick={() => router.push('/aliases')}
             className="px-6 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-xl transition-all duration-200"
           >
-            manage aliases
+            {t('pages.dashboard.manageAliases')}
           </button>
         </div>
       </div>

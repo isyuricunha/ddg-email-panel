@@ -9,7 +9,7 @@ module.exports = async () => {
   const nextConfig = getGitCommitInfo(
     withPWA({
       experimental: {
-        newNextLinkBehavior: true,
+        // removed deprecated newNextLinkBehavior option
       },
       i18n,
       reactStrictMode: true,
