@@ -43,7 +43,7 @@ const notLoginNavItem: NavItem[] = [
   {
     title: 'Github',
     icon: <FiGithub className="w-5" />,
-    href: 'https://github.com/whatk233/ddg-email-panel',
+    href: 'https://github.com/isyuricunha/ddg-email-panel',
   },
 ]
 
@@ -63,7 +63,7 @@ const navItem: NavItem[] = [
   {
     title: 'Github',
     icon: <FiGithub className="w-5" />,
-    href: 'https://github.com/whatk233/ddg-email-panel',
+    href: 'https://github.com/isyuricunha/ddg-email-panel',
   },
 ]
 
@@ -317,7 +317,6 @@ export default function Nav() {
   }, [router.query, setUserId, userId])
   return (
     <>
-      {/* Mobile */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -353,7 +352,6 @@ export default function Nav() {
         </Dialog>
       </Transition>
 
-      {/* PC */}
       <aside
         className={`hidden lg:block min-h-screen overflow-hidden shrink-0 w-64 p-5 bg-slate-100 dark:bg-slate-800 dark:text-slate-300`}
       >

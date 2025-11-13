@@ -47,5 +47,7 @@
   "Access Token": "Token de Acesso",
   "Enter your Access Token": "Digite seu Token de Acesso",
   "How to obtain a Token": "Como obter um Token de Acesso (Token de API)",
-  "The access token cannot generate an alias": "O Token de Acesso não pode gerar um alias. Verifique se ele é válido."
+  "The access token cannot generate an alias": "O Token de Acesso não pode gerar um alias. Verifique se ele é válido.",
+  "Coming soon": "Em breve...",
+  "Log Out": "Sair"
 }

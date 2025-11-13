@@ -13,7 +13,6 @@ const EmailPage: NextPage = () => {
 
   useEffect(() => {
     const { id } = router.query
-    // If user id query is empty, get the last user id
     if (!id && localStorage.lastuser) {
       router.push({
         query: {
@@ -22,14 +21,14 @@ const EmailPage: NextPage = () => {
       })
     }
     const userInfo = store.getAccount(Number(id))
-    if (userInfo) {
-      //
-    } else if (Number(id) !== 0 && store.getAccount(0)) {
-      router.push({
-        query: { id: 0 },
-      })
-    } else {
-      router.push('/login')
+    if (!userInfo) {
+      if (Number(id) !== 0 && store.getAccount(0)) {
+        router.push({
+          query: { id: 0 },
+        })
+      } else {
+        router.push('/login')
+      }
     }
   }, [router])
 
@@ -38,7 +37,7 @@ const EmailPage: NextPage = () => {
       title={t('nav.account')}
       className="flex flex-col h-[calc(100vh_-_120px)] items-center justify-center"
     >
-      Coming soon...
+      {t('Coming soon')}
       <button
         className={`flex items-center justify-center bg-red-600 hover:bg-red-500 dark:text-slate-300 dark:bg-red-700 dark:hover:bg-red-600 shadow rounded-md px-4 py-2 my-3 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 disabled:bg-slate-400 hover:disabled:bg-slate-400 disabled:cursor-not-allowed`}
         onClick={() => {
@@ -47,7 +46,7 @@ const EmailPage: NextPage = () => {
         }}
       >
         <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" />
-        Log Out
+        {t('Log Out')}
       </button>
     </Layout>
   )

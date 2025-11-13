@@ -47,5 +47,7 @@
   "Access Token": "Access Token",
   "Enter your Access Token": "请输入你的 Access Token",
   "How to obtain a Token": "如何获取 Access Token (API Token)",
-  "The access token cannot generate an alias": "该 Access Token 无法生成别名，请检查是否有效"
+  "The access token cannot generate an alias": "该 Access Token 无法生成别名，请检查是否有效",
+  "Coming soon": "即将推出...",
+  "Log Out": "退出登录"
 }

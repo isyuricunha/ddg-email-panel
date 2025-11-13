@@ -47,5 +47,7 @@
   "Access Token": "Access Token",
   "Enter your Access Token": "Enter your Access Token",
   "How to obtain a Token": "How to get Access Token (API Token)",
-  "The access token cannot generate an alias": "The Access Token cannot generate an alias, please check whether it is valid"
+  "The access token cannot generate an alias": "The Access Token cannot generate an alias, please check whether it is valid",
+  "Coming soon": "Coming soon...",
+  "Log Out": "Log Out"
 }

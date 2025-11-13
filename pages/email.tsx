@@ -61,7 +61,7 @@ const Email = () => {
       })
       .catch((res) => {
         if (res?.status) {
-          if (res?.status == 401) {
+          if (res?.status === 401) {
             toast.error(`${t('Generate failed')} - ${t('Unauthorized.1')}`)
           } else {
             toast.error(`${t('Generate failed')} - (${res.status} - ${res.statusText})`)
@@ -143,7 +143,6 @@ const EmailPage: NextPage = () => {
 
   useEffect(() => {
     const { id } = router.query
-    // If user id query is empty, get the last user id
     if (!id && localStorage.lastuser) {
       router.push({
         query: {

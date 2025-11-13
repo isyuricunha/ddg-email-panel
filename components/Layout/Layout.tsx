@@ -25,7 +25,6 @@ export default function Layout({
         <meta name="description" content={t('DDG Email Introduction')} />
       </Head>
       <div className="relative flex flex-row h-screen overflow-hidden dark:bg-slate-900 dark:text-slate-300">
-        {/* nav */}
         <Nav />
         <main className="w-full overflow-auto">
           <div className="flex items-center w-full px-4 bg-white dark:bg-slate-900 h-14">

@@ -47,5 +47,7 @@
   "Access Token": "Access Token",
   "Enter your Access Token": "アクセストークンを入力してください",
   "How to obtain a Token": "アクセストークン（APIトークン）の取得方法",
-  "The access token cannot generate an alias": "アクセス トークンはエイリアスを生成できません。有効かどうかを確認してください。"
+  "The access token cannot generate an alias": "アクセス トークンはエイリアスを生成できません。有効かどうかを確認してください。",
+  "Coming soon": "近日公開...",
+  "Log Out": "ログアウト"
 }
