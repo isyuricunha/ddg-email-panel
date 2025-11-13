@@ -6,7 +6,7 @@ import { EnvelopeIcon, DocumentDuplicateIcon, PaperAirplaneIcon } from '@heroico
 import Layout from '../components/Layout/Layout'
 import { useAuth } from '../hooks/useAuth'
 
-const CopyButton = ({ text, label }: { text: string; label: string }) => {
+const CopyButton = ({ text, label, variant = 'default' }: { text: string; label: string; variant?: 'default' | 'primary' }) => {
   const [copied, setCopied] = useState(false)
   
   const handleCopy = () => {
@@ -15,14 +15,19 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
     setTimeout(() => setCopied(false), 2000)
   }
   
+  const baseClasses = "flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-orange/50"
+  const variantClasses = variant === 'primary' 
+    ? "bg-white/10 hover:bg-white/20 text-black/80 border border-black/20" 
+    : "glass-effect hover:bg-white/10 text-gray-300"
+  
   return (
     <button
       onClick={handleCopy}
-      className="flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 glass-effect hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent-orange/50 disabled:opacity-40"
+      className={`${baseClasses} ${variantClasses}`}
       aria-label={label}
     >
       <DocumentDuplicateIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-      <span className="text-gray-300">{copied ? 'copied!' : 'copy'}</span>
+      <span>{copied ? 'copied!' : 'copy'}</span>
     </button>
   )
 }
@@ -54,37 +59,32 @@ const FormatterPage: NextPage = () => {
   return (
     <Layout
       title="Email Formatter"
-      className="px-8 py-6 max-w-4xl mx-auto"
+      className="px-8 py-6 max-w-3xl mx-auto"
     >
       <div className="space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
-            duckduckgo send email formatter
+            duck alias generator
           </h1>
-          <p className="text-gray-400">format your duck addresses for easy sending</p>
+          <p className="text-gray-400">create unique aliases for each recipient</p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="glass-effect rounded-2xl p-6 border border-white/10">
-            <div className="flex items-center gap-3 mb-4">
-              <EnvelopeIcon className="w-5 h-5 text-accent-orange" />
-              <h2 className="text-lg font-semibold text-gray-200">email setup</h2>
-            </div>
-            
-            <div className="space-y-4">
+        <div className="glass-effect rounded-2xl p-8 border border-white/10">
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">to email</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">recipient email</label>
                 <input
                   type="email"
                   value={toEmail}
                   onChange={(e) => setToEmail(e.target.value)}
-                  placeholder="receiver@example.com"
+                  placeholder="exemplo@gmail.com"
                   className="w-full px-4 py-3 rounded-xl bg-pure-dark border border-white/10 text-gray-100 placeholder-gray-500 focus:border-accent-orange/50 focus:ring-2 focus:ring-accent-orange/30 focus:outline-none transition-all duration-200"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">duck username</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">your duck username</label>
                 <input
                   type="text"
                   value={fromAlias}
@@ -92,84 +92,41 @@ const FormatterPage: NextPage = () => {
                   placeholder="isyuricunha"
                   className="w-full px-4 py-3 rounded-xl bg-pure-dark border border-white/10 text-gray-100 placeholder-gray-500 focus:border-accent-orange/50 focus:ring-2 focus:ring-accent-orange/30 focus:outline-none transition-all duration-200"
                 />
-                <p className="text-xs text-gray-500 mt-1">just your username, without @duck.com</p>
               </div>
-            </div>
-          </div>
-          
-          <div className="glass-effect rounded-2xl p-6 border border-accent-orange/20">
-            <div className="flex items-center gap-3 mb-4">
-              <PaperAirplaneIcon className="w-5 h-5 text-accent-yellow" />
-              <h2 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow">
-                formatted output
-              </h2>
             </div>
             
             {toEmail && fromAlias ? (
-              <div className="space-y-4">
-                <div className="bg-pure-darker rounded-xl p-4 border border-white/5">
-                  <p className="text-sm font-medium text-gray-400 mb-2">email format template</p>
-                  <pre className="text-gray-200 text-sm whitespace-pre-wrap font-mono">
-                    {formatEmailString()}
-                  </pre>
-                  <div className="mt-3 flex gap-2">
-                    <CopyButton text={formatEmailString()} label="copy email format" />
-                    <a
-                      href={generateMailtoLink()}
-                      className="flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-gradient-to-r from-accent-orange to-accent-yellow hover:from-accent-orange-light hover:to-accent-yellow text-white shadow-lg shadow-accent-orange/20"
-                    >
-                      <PaperAirplaneIcon className="w-4 h-4 mr-2" />
-                      open in mail app
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="bg-pure-darker rounded-xl p-4 border border-accent-orange/10">
-                  <p className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
-                    generated duck alias
-                  </p>
-                  <div className="bg-pure-black rounded-lg p-3 border border-accent-orange/20">
-                    <p className="text-accent-yellow font-mono text-lg break-all">
+              <div className="space-y-6 pt-4 border-t border-white/10">
+                <div className="text-center">
+                  <p className="text-sm text-gray-400 mb-3">generated alias</p>
+                  <div className="bg-gradient-to-r from-accent-orange to-accent-yellow rounded-xl p-6">
+                    <p className="text-black font-mono text-2xl font-bold break-all mb-4">
                       {generateDuckAlias()}
                     </p>
-                  </div>
-                  <div className="mt-3">
-                    <CopyButton text={generateDuckAlias()} label="copy generated duck alias" />
-                  </div>
-                </div>
-                
-                <div className="bg-pure-darker rounded-xl p-4 border border-white/5">
-                  <p className="text-sm font-medium text-gray-400 mb-2">original addresses</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-300 text-sm">to: {toEmail}</span>
-                      <CopyButton text={toEmail} label="copy to address" />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-300 text-sm">from: {fromAlias}</span>
-                      <CopyButton text={fromAlias} label="copy from address" />
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <CopyButton text={generateDuckAlias()} label="copy alias" variant="primary" />
+                      <a
+                        href={`mailto:${toEmail}?from=${generateDuckAlias()}`}
+                        className="inline-flex items-center justify-center px-6 py-2 text-sm font-semibold text-white rounded-lg transition-all duration-200 bg-black/20 hover:bg-black/30 border border-black/20"
+                      >
+                        <PaperAirplaneIcon className="w-4 h-4 mr-2" />
+                        compose email
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="text-center py-8">
-                <EnvelopeIcon className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm">fill in the email details to see the formatted output</p>
+              <div className="text-center py-12 border-t border-white/10">
+                <EnvelopeIcon className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                <p className="text-gray-400">enter email details above to generate your duck alias</p>
               </div>
             )}
           </div>
         </div>
         
-        <div className="bg-pure-darker rounded-xl p-6 border border-white/5">
-          <h3 className="text-lg font-semibold text-gray-200 mb-3">how to use</h3>
-          <div className="space-y-2 text-sm text-gray-400">
-            <p>• enter the recipient email address (e.g., exemplo@gmail.com)</p>
-            <p>• type your duck username without @duck.com (e.g., isyuricunha)</p>
-            <p>• the tool will generate a duck alias like: exemplo_at_gmail_com_isyuricunha@duck.com</p>
-            <p>• copy the generated alias and use it as your "from" address when sending emails</p>
-            <p>• this creates a unique alias for each recipient while protecting your main address</p>
-          </div>
+        <div className="text-center text-sm text-gray-500">
+          <p>this creates a unique alias that forwards to your main duck address</p>
         </div>
       </div>
     </Layout>
