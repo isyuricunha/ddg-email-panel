@@ -184,9 +184,8 @@ const NavLink = ({
         className={classNames}
         onClick={() => {
           if (router) {
-            uRouter.push(`${router}`, {
-              query: { id: uid },
-            })
+            const url = uid ? `${router}?id=${uid}` : router
+            uRouter.push(url)
           }
         }}
       >
