@@ -19,8 +19,6 @@ import {
   GlobeAltIcon,
   InformationCircleIcon,
   PaperAirplaneIcon,
-  HomeIcon,
-  EnvelopeIcon,
   RectangleStackIcon,
   ChartBarIcon
 } from '@heroicons/react/24/outline'

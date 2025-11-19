@@ -15,8 +15,8 @@ import {
 import Layout from '../components/Layout/Layout'
 import { useAuth } from '../hooks/useAuth'
 import { AliasCardSkeleton } from '../components/ui/skeleton'
-import { AnimationWrapper, StaggerContainer, StaggerItem } from '../components/ui/animation-wrapper'
-import * as store from '../utils/store'
+import { StaggerContainer, StaggerItem } from '../components/ui/animation-wrapper'
+
 
 interface AliasItem {
   id: string
@@ -124,7 +124,7 @@ const AliasesPage: NextPage = () => {
     if (savedAliases) {
       try {
         setAliases(JSON.parse(savedAliases))
-      } catch (error) {
+      } catch (_error) {
         console.error('[aliases] failed to load aliases')
         setAliases([])
       }
