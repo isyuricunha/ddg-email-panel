@@ -13,7 +13,6 @@ module.exports = async () => {
       },
       i18n,
       reactStrictMode: true,
-      swcMinify: true,
       output: 'standalone',
     })
   )
