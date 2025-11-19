@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { 
-  MagnifyingGlassIcon, 
-  TrashIcon, 
+import {
+  MagnifyingGlassIcon,
+  TrashIcon,
   DocumentDuplicateIcon,
   PlusIcon,
   EyeIcon,
@@ -14,6 +14,8 @@ import {
 } from '@heroicons/react/24/outline'
 import Layout from '../components/Layout/Layout'
 import { useAuth } from '../hooks/useAuth'
+import { AliasCardSkeleton } from '../components/ui/skeleton'
+import { AnimationWrapper, StaggerContainer, StaggerItem } from '../components/ui/animation-wrapper'
 import * as store from '../utils/store'
 
 interface AliasItem {
@@ -41,7 +43,7 @@ const AliasCard = ({ alias, onCopy, onToggle, onDelete, t }: {
   }
 
   return (
-    <div className="glass-effect rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all duration-200">
+    <div className="glass-effect rounded-xl p-4 border border-white/10 card-hover" role="article" aria-label={`Alias ${alias.alias}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <p className="text-lg font-semibold text-gray-100 truncate">
@@ -58,7 +60,7 @@ const AliasCard = ({ alias, onCopy, onToggle, onDelete, t }: {
           </span>
         </div>
       </div>
-      
+
       <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
@@ -68,7 +70,7 @@ const AliasCard = ({ alias, onCopy, onToggle, onDelete, t }: {
           <span>{alias.usageCount} {t('pages.aliases.uses')}</span>
         </div>
       </div>
-      
+
       <div className="flex items-center gap-2">
         <button
           onClick={handleCopy}
@@ -77,7 +79,7 @@ const AliasCard = ({ alias, onCopy, onToggle, onDelete, t }: {
           <DocumentDuplicateIcon className="w-4 h-4 mr-2" />
           {copied ? t('pages.aliases.copied') : t('pages.aliases.copy')}
         </button>
-        
+
         <button
           onClick={() => onToggle(alias.id)}
           className="flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-white/5 hover:bg-white/10 text-gray-300"
@@ -88,7 +90,7 @@ const AliasCard = ({ alias, onCopy, onToggle, onDelete, t }: {
             <EyeIcon className="w-4 h-4" />
           )}
         </button>
-        
+
         <button
           onClick={() => onDelete(alias.id)}
           className="flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 text-red-400"
@@ -160,7 +162,7 @@ const AliasesPage: NextPage = () => {
         usageCount: 0,
         description: 'generated from email page'
       }
-      
+
       const existingAliases = aliases.filter(a => a.alias !== userInfo.nextAlias)
       saveAliases([newAlias, ...existingAliases])
     }
@@ -168,21 +170,30 @@ const AliasesPage: NextPage = () => {
 
   const filteredAliases = aliases.filter(alias => {
     const matchesSearch = alias.alias.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         alias.description?.toLowerCase().includes(searchTerm.toLowerCase())
-    
-    const matchesFilter = filterActive === 'all' || 
-                         (filterActive === 'active' && alias.isActive) ||
-                         (filterActive === 'inactive' && !alias.isActive)
-    
+      alias.description?.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const matchesFilter = filterActive === 'all' ||
+      (filterActive === 'active' && alias.isActive) ||
+      (filterActive === 'inactive' && !alias.isActive)
+
     return matchesSearch && matchesFilter
   })
 
   if (loading) {
     return (
       <Layout title="aliases" className="px-8 py-6 max-w-6xl mx-auto">
-        <div className="text-center py-12">
-          <div className="w-8 h-8 border-2 border-accent-orange border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">{t('pages.aliases.loadingAliases')}</p>
+        <div className="space-y-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
+              {t('pages.aliases.title')}
+            </h1>
+            <p className="text-gray-400">{t('pages.aliases.subtitle')}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-busy="true" aria-label="Loading aliases">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <AliasCardSkeleton key={i} />
+            ))}
+          </div>
         </div>
       </Layout>
     )
@@ -249,17 +260,18 @@ const AliasesPage: NextPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.05}>
           {filteredAliases.length > 0 ? (
             filteredAliases.map((alias) => (
-              <AliasCard
-                key={alias.id}
-                alias={alias}
-                onCopy={handleCopy}
-                onToggle={handleToggle}
-                onDelete={handleDelete}
-                t={t}
-              />
+              <StaggerItem key={alias.id}>
+                <AliasCard
+                  alias={alias}
+                  onCopy={handleCopy}
+                  onToggle={handleToggle}
+                  onDelete={handleDelete}
+                  t={t}
+                />
+              </StaggerItem>
             ))
           ) : (
             <div className="col-span-full text-center py-12">
@@ -270,14 +282,14 @@ const AliasesPage: NextPage = () => {
                 {searchTerm || filterActive !== 'all' ? t('pages.aliases.noAliasesFound') : t('pages.aliases.noAliasesSaved')}
               </p>
               <p className="text-gray-500 text-sm">
-                {searchTerm || filterActive !== 'all' 
+                {searchTerm || filterActive !== 'all'
                   ? t('pages.aliases.tryAdjusting')
                   : t('pages.aliases.generateFromEmail')
                 }
               </p>
             </div>
           )}
-        </div>
+        </StaggerContainer>
 
         {filteredAliases.length > 0 && (
           <div className="text-center text-sm text-gray-500">

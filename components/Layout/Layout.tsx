@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 import Nav, { NavSwitch } from './Nav'
+import { SkipLink } from '../ui/skip-link'
 
 export default function Layout({
   children,
@@ -24,16 +25,17 @@ export default function Layout({
         <meta property="og:description" content={t('DDG Email Introduction')} />
         <meta name="description" content={t('DDG Email Introduction')} />
       </Head>
+      <SkipLink />
       <div className="relative flex flex-row h-screen overflow-hidden bg-pure-black">
         <Nav />
-        <main className="w-full overflow-auto bg-pure-black">
-          <div className="flex items-center w-full px-6 h-16 bg-pure-darker/30 backdrop-blur-sm border-b border-white/5">
+        <main className="w-full overflow-auto bg-pure-black" role="main">
+          <div className="flex items-center w-full px-6 h-16 bg-pure-darker/30 backdrop-blur-sm border-b border-white/5" role="banner">
             <NavSwitch />
             <div className="ml-3 lg:hidden font-semibold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow">
               DDG Email Panel
             </div>
           </div>
-          <div className={`px-8 py-6 ${className ? className : ''}`}>{children}</div>
+          <div id="main-content" className={`px-8 py-6 ${className ? className : ''}`}>{children}</div>
         </main>
       </div>
       <Toaster

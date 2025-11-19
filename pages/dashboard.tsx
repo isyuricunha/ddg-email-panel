@@ -14,6 +14,8 @@ import {
 } from '@heroicons/react/24/outline'
 import Layout from '../components/Layout/Layout'
 import { useAuth } from '../hooks/useAuth'
+import { StatCardSkeleton } from '../components/ui/skeleton'
+import { StaggerContainer, StaggerItem } from '../components/ui/animation-wrapper'
 
 interface AliasItem {
   id: string
@@ -41,7 +43,7 @@ const StatCard = ({ icon: Icon, title, value, subtitle, color = 'accent-orange' 
   subtitle?: string
   color?: string
 }) => (
-  <div className="glass-effect rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-200">
+  <div className="glass-effect rounded-xl p-6 border border-white/10 card-hover" role="article" aria-label={title}>
     <div className="flex items-center gap-4">
       <div className={`p-3 rounded-lg bg-${color}/20`}>
         <Icon className={`w-6 h-6 text-${color}`} />
@@ -112,19 +114,19 @@ const DashboardPage: NextPage = () => {
   const calculateStats = (aliasData: AliasItem[]) => {
     const now = new Date()
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
-    
+
     const totalAliases = aliasData.length
     const activeAliases = aliasData.filter(a => a.isActive).length
     const inactiveAliases = totalAliases - activeAliases
     const recentAliases = aliasData.filter(a => new Date(a.createdAt) > sevenDaysAgo).length
-    
-    const sortedByDate = [...aliasData].sort((a, b) => 
+
+    const sortedByDate = [...aliasData].sort((a, b) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     )
-    
+
     const oldestAlias = sortedByDate[0]?.alias || null
     const newestAlias = sortedByDate[sortedByDate.length - 1]?.alias || null
-    
+
     let averagePerDay = 0
     if (totalAliases > 0 && sortedByDate.length > 1) {
       const firstDate = new Date(sortedByDate[0].createdAt)
@@ -150,14 +152,14 @@ const DashboardPage: NextPage = () => {
       date.setDate(date.getDate() - i)
       return {
         date: date.toISOString().split('T')[0],
-        count: aliases.filter(alias => 
+        count: aliases.filter(alias =>
           alias.createdAt.split('T')[0] === date.toISOString().split('T')[0]
         ).length
       }
     }).reverse()
 
     const maxCount = Math.max(...last7Days.map(d => d.count), 1)
-    
+
     return last7Days.map(day => ({
       ...day,
       height: Math.max(4, (day.count / maxCount) * 40)
@@ -167,9 +169,18 @@ const DashboardPage: NextPage = () => {
   if (loading) {
     return (
       <Layout title="dashboard" className="px-8 py-6 max-w-7xl mx-auto">
-        <div className="text-center py-12">
-          <div className="w-8 h-8 border-2 border-accent-orange border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">{t('pages.dashboard.loadingDashboard')}</p>
+        <div className="space-y-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-orange to-accent-yellow mb-2">
+              {t('pages.dashboard.title')}
+            </h1>
+            <p className="text-gray-400">{t('pages.dashboard.subtitle')}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-busy="true" aria-label="Loading dashboard">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <StatCardSkeleton key={i} />
+            ))}
+          </div>
         </div>
       </Layout>
     )
@@ -204,35 +215,43 @@ const DashboardPage: NextPage = () => {
           <p className="text-gray-400">{t('pages.dashboard.subtitle')}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <StatCard
-            icon={RectangleStackIcon}
-            title={t('pages.dashboard.totalAliases')}
-            value={stats.totalAliases}
-            subtitle={t('pages.dashboard.allTime')}
-          />
-          <StatCard
-            icon={EyeIcon}
-            title={t('pages.dashboard.activeAliases')}
-            value={stats.activeAliases}
-            subtitle={`${stats.inactiveAliases} ${t('pages.dashboard.inactive')}`}
-            color="green-400"
-          />
-          <StatCard
-            icon={ArrowTrendingUpIcon}
-            title={t('pages.dashboard.recentAliases')}
-            value={stats.recentAliases}
-            subtitle={t('pages.dashboard.last7Days')}
-            color="blue-400"
-          />
-          <StatCard
-            icon={ChartBarIcon}
-            title={t('pages.dashboard.avgPerDay')}
-            value={stats.averagePerDay}
-            subtitle={t('pages.dashboard.sinceFirstAlias')}
-            color="purple-400"
-          />
-        </div>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.08}>
+          <StaggerItem>
+            <StatCard
+              icon={RectangleStackIcon}
+              title={t('pages.dashboard.totalAliases')}
+              value={stats.totalAliases}
+              subtitle={t('pages.dashboard.allTime')}
+            />
+          </StaggerItem>
+          <StaggerItem>
+            <StatCard
+              icon={EyeIcon}
+              title={t('pages.dashboard.activeAliases')}
+              value={stats.activeAliases}
+              subtitle={`${stats.inactiveAliases} ${t('pages.dashboard.inactive')}`}
+              color="green-400"
+            />
+          </StaggerItem>
+          <StaggerItem>
+            <StatCard
+              icon={ArrowTrendingUpIcon}
+              title={t('pages.dashboard.recentAliases')}
+              value={stats.recentAliases}
+              subtitle={t('pages.dashboard.last7Days')}
+              color="blue-400"
+            />
+          </StaggerItem>
+          <StaggerItem>
+            <StatCard
+              icon={ChartBarIcon}
+              title={t('pages.dashboard.avgPerDay')}
+              value={stats.averagePerDay}
+              subtitle={t('pages.dashboard.sinceFirstAlias')}
+              color="purple-400"
+            />
+          </StaggerItem>
+        </StaggerContainer>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 glass-effect rounded-2xl p-6 border border-white/10">
@@ -241,7 +260,7 @@ const DashboardPage: NextPage = () => {
               <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.activityChart')}</h2>
               <span className="text-sm text-gray-500">{t('pages.dashboard.last7Days')}</span>
             </div>
-            
+
             <div className="flex items-end justify-between gap-2 h-48">
               {activityData.map((day, index) => (
                 <div key={day.date} className="flex-1 flex flex-col items-center gap-2">
@@ -265,7 +284,7 @@ const DashboardPage: NextPage = () => {
               <ClockIcon className="w-5 h-5 text-accent-yellow" />
               <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.recentAliasesList')}</h2>
             </div>
-            
+
             <div className="space-y-3">
               {recentAliases.length > 0 ? (
                 recentAliases.map((alias) => (
@@ -302,7 +321,7 @@ const DashboardPage: NextPage = () => {
               <CalendarIcon className="w-5 h-5 text-accent-orange" />
               <h2 className="text-lg font-semibold text-gray-200">{t('pages.dashboard.timeline')}</h2>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="text-center p-4 bg-pure-darker rounded-lg border border-white/5">
                 <p className="text-sm text-gray-400 mb-1">{t('pages.dashboard.firstAlias')}</p>

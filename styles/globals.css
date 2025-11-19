@@ -30,6 +30,18 @@ body {
   h5 {
     @apply text-xl;
   }
+  
+  *:focus-visible {
+    @apply outline-none ring-2 ring-focus-ring ring-offset-2 ring-offset-focus-ring-offset rounded;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-focus-ring ring-offset-2 ring-offset-focus-ring-offset;
+  }
 }
 
 @layer components {
@@ -72,5 +84,32 @@ body {
   .sr-only {
     @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
     clip: rect(0, 0, 0, 0);
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .loading-spinner {
+    @apply w-8 h-8 border-2 border-accent-orange border-t-transparent rounded-full animate-spin;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:border-white/20 hover:shadow-lg hover:shadow-accent-orange/5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
